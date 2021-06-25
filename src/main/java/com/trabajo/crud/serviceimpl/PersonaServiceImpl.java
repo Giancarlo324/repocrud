@@ -1,5 +1,6 @@
 package com.trabajo.crud.serviceimpl;
 
+import com.trabajo.crud.dto.PersonaDetailBasicDto;
 import com.trabajo.crud.entity.Persona;
 import com.trabajo.crud.repository.PersonaRepository;
 import com.trabajo.crud.service.PersonaService;
@@ -29,7 +30,7 @@ public class PersonaServiceImpl implements PersonaService {
 
     @Override
     public void updatePersona(int codigo, Persona persona) {
-        Persona personaFromDb = personaRepository.findById(codigo).get();
+        Persona personaFromDb = personaRepository.findByCodigo(codigo);
         personaFromDb.setNombre(persona.getNombre());
         personaFromDb.setApellido(persona.getApellido());
         personaFromDb.setCodigoEstado(persona.getCodigoEstado());
@@ -40,5 +41,10 @@ public class PersonaServiceImpl implements PersonaService {
     @Override
     public void deletePersona(int codigo) {
         personaRepository.deleteById(codigo);
+    }
+
+    @Override
+    public PersonaDetailBasicDto findPersonaDetail(int identificacion) {
+        return personaRepository.findPersonaDetail(identificacion);
     }
 }

@@ -1,6 +1,7 @@
 package com.trabajo.crud.service;
 
 
+import com.trabajo.crud.dto.PersonaDetailBasicDto;
 import com.trabajo.crud.entity.Persona;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface PersonaService {
     void updatePersona(int codigo, Persona persona);
 
     void deletePersona(int codigo);
+
+    PersonaDetailBasicDto findPersonaDetail(int identificacion);
 }
