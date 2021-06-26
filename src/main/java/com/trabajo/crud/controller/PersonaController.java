@@ -97,24 +97,35 @@ public class PersonaController {
 	}
 
 	@GetMapping("/getpersonas")
-	public List<PersonaDetailBasicDto> getAllPerson() {
-		return personaService.getPersonas();
+	public ResponseEntity<Object> getAllPerson() {
+		if(!personaService.getPersonas().isEmpty()){
+			return new ResponseEntity<>(personaService.getPersonas(), HttpStatus.OK);
+		}
+		Response response = new Response("No hay personas registradas", HttpStatus.BAD_REQUEST.value());
+		return new ResponseEntity<>(response, HttpStatus.OK);
+
 	}
 
-	@GetMapping("/getpersonactiva")
-	public PersonaDetailBasicDto personaDetailBasicDto() {
-		return personaService.findPersonasActivas();
+	@GetMapping("/getpersonasctiva")
+	public ResponseEntity<Object> personaDetailBasicDto() {
+		if(!personaService.findPersonasActivas().isEmpty()) {
+			return new ResponseEntity<>(personaService.findPersonasActivas(), HttpStatus.OK);
+		}
+		Response response = new Response("No hay personas activas", HttpStatus.BAD_REQUEST.value());
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
 	@PutMapping("/updatepersona/{codigo}")
-	public ResponseEntity<?> updatePerson(@PathVariable("codigo") int codigo,
+	public ResponseEntity<Object> updatePerson(@PathVariable("codigo") int codigo,
 									   @RequestBody Persona persona) {
 		boolean personaByCodigo = personaRepository.existsByCodigo(codigo);
+		Response response = new Response("Persona actualizada", HttpStatus.OK.value());
 		if(personaByCodigo) {
 			personaService.updatePersona(codigo, persona);
-			return new ResponseEntity<>("Actualizado!", HttpStatus.OK);
+			return new ResponseEntity<>(response, HttpStatus.OK);
 		}
-		return new ResponseEntity<>("No se encontró al usuario", HttpStatus.BAD_REQUEST);
+		response.setMensaje("No se encontró a la persona con código ingresado");
+		return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 	}
 
 }

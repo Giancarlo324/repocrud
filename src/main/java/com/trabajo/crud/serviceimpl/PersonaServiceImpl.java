@@ -48,7 +48,7 @@ public class PersonaServiceImpl implements PersonaService {
     }
 
     @Override
-    public PersonaDetailBasicDto findPersonasActivas() {
+    public List<PersonaDetailBasicDto> findPersonasActivas() {
         return personaRepository.findPersonasActivas();
     }
 

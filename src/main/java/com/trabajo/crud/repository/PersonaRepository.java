@@ -36,7 +36,7 @@ public interface PersonaRepository extends CrudRepository<Persona, Integer> {
             "INNER JOIN estado e ON p.codigo_estado = e.codigo " +
             "INNER JOIN tipo_identificacion ti ON p.codigo_tipo_identificacion = ti.codigo " +
             "WHERE p.codigo_estado = 1", nativeQuery = true)
-    PersonaDetailBasicDto findPersonasActivas();
+    List<PersonaDetailBasicDto> findPersonasActivas();
 
     @Query(value = "SELECT DISTINCT p.nombre as nombre, p.apellido as apellido, " +
             "ti.nombre as tipoIdentificacion, p.identificacion as identificacion, " +

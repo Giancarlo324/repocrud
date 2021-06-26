@@ -19,7 +19,7 @@ public interface PersonaService {
 
     PersonaDetailBasicDto findPersonaDetail(int identificacion);
 
-    PersonaDetailBasicDto findPersonasActivas();
+    List<PersonaDetailBasicDto> findPersonasActivas();
 
     PersonaLoginDto findByUsernameAndPassword(String username, String password);
 }
