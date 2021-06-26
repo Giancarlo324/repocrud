@@ -45,6 +45,7 @@ public class PersonaController {
 		}
 
 		personaService.insert(persona);
+		response.setStatus(HttpStatus.OK.value());
 		response.setMensaje("Registro exitoso");
 
 		return new ResponseEntity<>(response, HttpStatus.OK);
@@ -106,7 +107,7 @@ public class PersonaController {
 
 	}
 
-	@GetMapping("/getpersonasctiva")
+	@GetMapping("/getpersonasactivas")
 	public ResponseEntity<Object> personaDetailBasicDto() {
 		if(!personaService.findPersonasActivas().isEmpty()) {
 			return new ResponseEntity<>(personaService.findPersonasActivas(), HttpStatus.OK);
@@ -115,16 +116,28 @@ public class PersonaController {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
-	@PutMapping("/updatepersona/{codigo}")
-	public ResponseEntity<Object> updatePerson(@PathVariable("codigo") int codigo,
+	@PutMapping("/updatepersona/{identificacion}")
+	public ResponseEntity<Object> updatePersona(@PathVariable("identificacion") int identificacion,
 									   @RequestBody Persona persona) {
-		boolean personaByCodigo = personaRepository.existsByCodigo(codigo);
+		boolean personaByIdentificacion = personaRepository.existsByIdentificacion(identificacion);
 		Response response = new Response("Persona actualizada", HttpStatus.OK.value());
-		if(personaByCodigo) {
-			personaService.updatePersona(codigo, persona);
+		if(personaByIdentificacion) {
+			personaService.updatePersona(identificacion, persona);
 			return new ResponseEntity<>(response, HttpStatus.OK);
 		}
-		response.setMensaje("No se encontró a la persona con código ingresado");
+		response.setMensaje("No se encontró a la persona con identificación ingresada");
+		return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+	}
+
+	@DeleteMapping("/deletepersona")
+	public ResponseEntity<Object> deletePersona(@PathVariable("identificacion") int identificacion) {
+		boolean personaByIdentificacion = personaRepository.existsByIdentificacion(identificacion);
+		Response response = new Response("Persona eliminada", HttpStatus.OK.value());
+		if(personaByIdentificacion) {
+			personaService.deletePersona(identificacion);
+			return new ResponseEntity<>(response, HttpStatus.OK);
+		}
+		response.setMensaje("No se encontró a la persona con identificación ingresada");
 		return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 	}
 

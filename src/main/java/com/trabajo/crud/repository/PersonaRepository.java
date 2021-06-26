@@ -16,7 +16,7 @@ public interface PersonaRepository extends CrudRepository<Persona, Integer> {
     boolean existsByCodigo(int codigo);
     boolean existsByIdentificacion(int identificacion);
 
-    Persona findByCodigo(int codigo);
+    Persona findByIdentificacion(int identificacion);
 
     PersonaLoginDto findByUsernameAndPassword(String username, String password);
 

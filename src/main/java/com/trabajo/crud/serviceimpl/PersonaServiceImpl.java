@@ -28,8 +28,8 @@ public class PersonaServiceImpl implements PersonaService {
     }
 
     @Override
-    public void updatePersona(int codigo, Persona persona) {
-        Persona personaFromDb = personaRepository.findByCodigo(codigo);
+    public void updatePersona(int identificacion, Persona persona) {
+        Persona personaFromDb = personaRepository.findByIdentificacion(identificacion);
         personaFromDb.setNombre(persona.getNombre());
         personaFromDb.setApellido(persona.getApellido());
         personaFromDb.setCodigoEstado(persona.getCodigoEstado());
