@@ -65,7 +65,7 @@ public class TipoIdentificacionController {
                 .orElse(null);
         if(tipoIdentificacion == null){
             response.setMensaje("No se encontró el tipo identificación con código ingresado");
-            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            response.setStatus(HttpStatus.NOT_FOUND.value());
             return new ResponseEntity<>(response, HttpStatus.OK);
         }
 

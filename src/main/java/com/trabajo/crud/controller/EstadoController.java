@@ -66,7 +66,7 @@ public class EstadoController {
                 .orElse(null);
         if(estado == null){
             response.setMensaje("No se encontró el estado con código ingresado");
-            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            response.setStatus(HttpStatus.NOT_FOUND.value());
             return new ResponseEntity<>(response, HttpStatus.OK);
         }
 

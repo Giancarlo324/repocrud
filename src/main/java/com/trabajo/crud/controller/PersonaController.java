@@ -2,6 +2,7 @@ package com.trabajo.crud.controller;
 
 import com.trabajo.crud.dto.PersonaLoginDto;
 import com.trabajo.crud.entity.Persona;
+import com.trabajo.crud.exception.RecordNotFoundException;
 import com.trabajo.crud.repository.PersonaRepository;
 import com.trabajo.crud.response.Response;
 import com.trabajo.crud.service.PersonaService;
@@ -91,7 +92,7 @@ public class PersonaController {
 		if(personaByIdentificacion){
 			return new ResponseEntity<>(personaService.findPersonaDetail(identificacion), HttpStatus.OK);
 		}
-		Response response = new Response("No se encontró a la persona", HttpStatus.BAD_REQUEST.value());
+		Response response = new Response("No se encontró a la persona", HttpStatus.NOT_FOUND.value());
 		return new ResponseEntity<>(response, HttpStatus.OK);
 
 	}
@@ -125,7 +126,7 @@ public class PersonaController {
 			return new ResponseEntity<>(response, HttpStatus.OK);
 		}
 		response.setMensaje("No se encontró a la persona con identificación ingresada");
-		return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
 	}
 
 	@DeleteMapping("/deletepersona/{codigo}")
