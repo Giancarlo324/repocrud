@@ -1,6 +1,5 @@
 package com.trabajo.crud.controller;
 
-import com.trabajo.crud.dto.PersonaDetailBasicDto;
 import com.trabajo.crud.dto.PersonaLoginDto;
 import com.trabajo.crud.entity.Persona;
 import com.trabajo.crud.repository.PersonaRepository;
@@ -67,7 +66,7 @@ public class PersonaController {
 	private String getJWTToken(String username) {
 		String secretKey = "mySecretKey";
 		List<GrantedAuthority> grantedAuthorities = AuthorityUtils
-				.commaSeparatedStringToAuthorityList("ROLE_USER");
+				.commaSeparatedStringToAuthorityList("admin");
 
 		String token = Jwts
 				.builder()
@@ -129,16 +128,17 @@ public class PersonaController {
 		return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 	}
 
-	@DeleteMapping("/deletepersona")
-	public ResponseEntity<Object> deletePersona(@PathVariable("identificacion") int identificacion) {
-		boolean personaByIdentificacion = personaRepository.existsByIdentificacion(identificacion);
+	@DeleteMapping("/deletepersona/{codigo}")
+	public ResponseEntity<Object> deletePersona(@PathVariable("codigo") int codigo) {
+		boolean personaByCodigo = personaRepository.existsByCodigo(codigo);
 		Response response = new Response("Persona eliminada", HttpStatus.OK.value());
-		if(personaByIdentificacion) {
-			personaService.deletePersona(identificacion);
+		if(personaByCodigo){
+			personaService.deleteById(codigo);
 			return new ResponseEntity<>(response, HttpStatus.OK);
 		}
-		response.setMensaje("No se encontró a la persona con identificación ingresada");
-		return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+		response.setMensaje("No se encontró a la persona con código ingresado");
+		response.setStatus(HttpStatus.BAD_REQUEST.value());
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
 }

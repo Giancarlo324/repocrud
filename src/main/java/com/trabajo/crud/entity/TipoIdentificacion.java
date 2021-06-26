@@ -20,14 +20,14 @@ public class TipoIdentificacion {
     private String nombre;
 
     @CreationTimestamp
-    @Column(name="fecha_creacion")
+    @Column(name="fecha_creacion", updatable = false)
     private Timestamp fechaCreacion;
 
-    @Column(name="usuario_creacion")
+    @Column(name="usuario_creacion", updatable = false)
     private String usuarioCreacion;
 
     @UpdateTimestamp
-    @Column(name="fecha_modificacion", updatable = false)
+    @Column(name="fecha_modificacion")
     private Timestamp fechaModificacion;
 
     @Column(name="usuario_modificacion")

@@ -34,11 +34,19 @@ public class PersonaServiceImpl implements PersonaService {
         personaFromDb.setApellido(persona.getApellido());
         personaFromDb.setCodigoEstado(persona.getCodigoEstado());
         personaFromDb.setIdentificacion(persona.getIdentificacion());
+        personaFromDb.setPassword(persona.getPassword());
+        personaFromDb.setFechaNacimiento(persona.getFechaNacimiento());
+        personaFromDb.setUsername(persona.getUsername());
         personaRepository.save(personaFromDb);
     }
 
     @Override
-    public void deletePersona(int codigo) {
+    public void delete(Persona persona) {
+        personaRepository.delete(persona);
+    }
+
+    @Override
+    public void deleteById(int codigo) {
         personaRepository.deleteById(codigo);
     }
 

@@ -15,7 +15,9 @@ public interface PersonaService {
 
     void updatePersona(int identificacion, Persona persona);
 
-    void deletePersona(int identificacion);
+    void delete(Persona persona);
+
+    void deleteById(int codigo);
 
     PersonaDetailBasicDto findPersonaDetail(int identificacion);
 

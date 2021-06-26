@@ -22,14 +22,14 @@ public class Estado {
 	@Column(name="codigo", updatable = false, nullable = false)
 	private int codigo;
 	
-	@Column(name="nombre")
+	@Column(name="nombre", nullable = false)
 	private String nombre;
 
 	@CreationTimestamp
 	@Column(name="fecha_creacion", updatable = false)
 	private Timestamp fechaCreacion;
 	
-	@Column(name="usuario_creacion")
+	@Column(name="usuario_creacion", updatable = false)
 	private String usuarioCreacion;
 
 	@UpdateTimestamp
