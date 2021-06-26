@@ -2,13 +2,14 @@ package com.trabajo.crud.service;
 
 
 import com.trabajo.crud.dto.PersonaDetailBasicDto;
+import com.trabajo.crud.dto.PersonaLoginDto;
 import com.trabajo.crud.entity.Persona;
 
 import java.util.List;
 
 public interface PersonaService {
 
-    List<Persona> getPersonas();
+    List<PersonaDetailBasicDto> getPersonas();
 
     Persona insert(Persona persona);
 
@@ -17,4 +18,8 @@ public interface PersonaService {
     void deletePersona(int codigo);
 
     PersonaDetailBasicDto findPersonaDetail(int identificacion);
+
+    PersonaDetailBasicDto findPersonasActivas();
+
+    PersonaLoginDto findByUsernameAndPassword(String username, String password);
 }

@@ -1,6 +1,7 @@
 package com.trabajo.crud.serviceimpl;
 
 import com.trabajo.crud.dto.PersonaDetailBasicDto;
+import com.trabajo.crud.dto.PersonaLoginDto;
 import com.trabajo.crud.entity.Persona;
 import com.trabajo.crud.repository.PersonaRepository;
 import com.trabajo.crud.service.PersonaService;
@@ -17,10 +18,8 @@ public class PersonaServiceImpl implements PersonaService {
 
 
     @Override
-    public List<Persona> getPersonas() {
-        List<Persona> personaList = new ArrayList<>();
-        personaRepository.findAll().forEach(personaList::add);
-        return personaList;
+    public List<PersonaDetailBasicDto> getPersonas() {
+        return new ArrayList<>(personaRepository.findAllPersonas());
     }
 
     @Override
@@ -46,5 +45,15 @@ public class PersonaServiceImpl implements PersonaService {
     @Override
     public PersonaDetailBasicDto findPersonaDetail(int identificacion) {
         return personaRepository.findPersonaDetail(identificacion);
+    }
+
+    @Override
+    public PersonaDetailBasicDto findPersonasActivas() {
+        return personaRepository.findPersonasActivas();
+    }
+
+    @Override
+    public PersonaLoginDto findByUsernameAndPassword(String username, String password) {
+        return personaRepository.findByUsernameAndPassword(username, password);
     }
 }
